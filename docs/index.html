@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Payments Intelligence: an end-to-end analytics portfolio case study by Prashanth Rajagopal." />
+  <meta property="og:title" content="Payments Intelligence | Prashanth Rajagopal" />
+  <meta property="og:description" content="1M synthetic events → canonical metrics → diagnosis → decision." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <title>Payments Intelligence | Prashanth Rajagopal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">PR / ANALYTICS</div>
+    <nav>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#diagnosis">Diagnosis</a>
+      <a href="#architecture">Architecture</a>
+      <a href="decision-memo.html">Decision memo</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow">PORTFOLIO CASE STUDY · SYNTHETIC DATA</div>
+        <h1>Payments Intelligence</h1>
+        <p class="hero-copy">An end-to-end analytics system that turns one million payment-like events into a canonical metric layer, root-cause diagnosis, and a quantified executive recommendation.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="#dashboard">Explore dashboard</a>
+          <a class="btn" href="https://github.com/IamGRootMSE/-payments-intelligence" target="_blank" rel="noreferrer">View source code ↗</a>
+        </div>
+      </div>
+      <div class="hero-panel">
+        <div class="hero-label">Built to demonstrate</div>
+        <div class="skill-grid">
+          <span>SQL metric design</span><span>Python pipelines</span><span>PySpark pattern</span><span>Data quality</span><span>Executive analytics</span><span>Decision framing</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="section">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">01 · EXECUTIVE HEALTH</div>
+          <h2>Payment performance at a glance</h2>
+          <p>Use the controls to recompute the same canonical metrics across market, merchant, device, and payment-method cuts.</p>
+        </div>
+        <div class="data-badge">Synthetic · deterministic seed</div>
+      </div>
+
+      <p id="dataStatus" role="status">Loading dashboard data…</p>
+      <noscript>Enable JavaScript to use the interactive dashboard. The decision memo is available above.</noscript>
+      <div class="filters">
+        <label>Country<select id="countryFilter"></select></label>
+        <label>Merchant segment<select id="segmentFilter"></select></label>
+        <label>Device<select id="deviceFilter"></select></label>
+        <label>Payment method<select id="methodFilter"></select></label>
+        <button id="resetFilters" class="reset">Reset</button>
+      </div>
+
+      <div id="kpiGrid" class="kpi-grid"></div>
+
+      <div class="grid-2">
+        <article class="card chart-card">
+          <div class="card-head"><div><span class="mini">TREND</span><h3>Payment success rate</h3></div><div id="trendDelta" class="delta"></div></div>
+          <div id="successChart" class="chart"></div>
+        </article>
+        <article class="card chart-card">
+          <div class="card-head"><div><span class="mini">VOLUME</span><h3>Successful payment volume</h3></div></div>
+          <div id="volumeChart" class="chart"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="diagnosis" class="section diagnosis-section">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">02 · ROOT-CAUSE DIAGNOSIS</div>
+          <h2>Find the deterioration, then quantify it</h2>
+          <p>The synthetic generator deliberately injects one June-onward failure pattern so the analysis has an answer that can be independently reproduced.</p>
+        </div>
+      </div>
+
+      <div class="diagnosis-grid">
+        <article class="card finding-card">
+          <span class="mini">FINDING</span>
+          <h3 id="findingTitle">Loading…</h3>
+          <p id="findingBody"></p>
+          <div class="impact-row">
+            <div><span class="impact-label">Success-rate change</span><strong id="diagBps"></strong></div>
+            <div><span class="impact-label">Recoverable volume</span><strong id="diagVolume"></strong></div>
+          </div>
+        </article>
+        <article class="card">
+          <span class="mini">FAILURE MIX</span>
+          <h3>Issuer declines became the dominant signal</h3>
+          <div class="bar-compare">
+            <div class="bar-line"><span>Baseline</span><div class="bar-bg"><div id="barBaseline" class="bar-fill"></div></div><b id="issuerBaseline"></b></div>
+            <div class="bar-line"><span>Incident</span><div class="bar-bg"><div id="barIncident" class="bar-fill strong"></div></div><b id="issuerIncident"></b></div>
+          </div>
+          <p class="muted">Share of failed attempts attributed to synthetic issuer declines within the affected cohort.</p>
+        </article>
+      </div>
+
+      <article class="recommendation">
+        <span class="mini">RECOMMENDATION</span>
+        <h3>Prioritize issuer-routing and mobile card diagnostics for the affected SMB cohort.</h3>
+        <p>Start with Canada and Great Britain mobile-card traffic, validate the routing/issuer pattern against operational logs, and monitor recovery using the same success-rate and successful-volume definitions. The recommendation follows the evidence; the dataset does not pretend correlation is magic.</p>
+      </article>
+    </section>
+
+    <section id="architecture" class="section">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">03 · SYSTEM DESIGN</div>
+          <h2>One metric layer, multiple execution paths</h2>
+          <p>The public site is intentionally static and fast. The repository contains the synthetic generator, SQL models, Python reference pipeline, optional PySpark path, tests, and CI.</p>
+        </div>
+      </div>
+      <div class="architecture">
+        <div class="node">Synthetic events<small>generate_data.py</small></div><div class="arrow">→</div>
+        <div class="node">Canonical transforms<small>SQL + Python</small></div><div class="arrow">→</div>
+        <div class="node">Metric layer<small>reconciled KPIs</small></div><div class="arrow">→</div>
+        <div class="node">QA gates<small>pytest + CI</small></div><div class="arrow">→</div>
+        <div class="node accent">Decision surface<small>this site</small></div>
+      </div>
+      <div class="repo-grid">
+        <a class="repo-card" href="https://github.com/IamGRootMSE/-payments-intelligence/blob/main/docs/architecture.md"><span>Architecture notes</span><b>Design choices →</b></a>
+        <a class="repo-card" href="https://github.com/IamGRootMSE/-payments-intelligence/blob/main/docs/data_dictionary.md"><span>Data dictionary</span><b>Definitions →</b></a>
+        <a class="repo-card" href="decision-memo.html"><span>Executive memo</span><b>Decision narrative →</b></a>
+      </div>
+    </section>
+
+    <section class="section about">
+      <div>
+        <div class="eyebrow">ABOUT THE BUILDER</div>
+        <h2>Prashanth Rajagopal</h2>
+        <p>Analytics leader focused on building decision systems at the intersection of data engineering, statistics, business strategy, and increasingly machine learning.</p>
+      </div>
+      <a class="btn primary" href="https://github.com/IamGRootMSE" target="_blank" rel="noreferrer">GitHub profile ↗</a>
+    </section>
+  </main>
+
+  <footer>Built with synthetic data for portfolio demonstration. No customer or employer data is used.</footer>
+  <script src="app.js"></script>
+</body>
+</html>
