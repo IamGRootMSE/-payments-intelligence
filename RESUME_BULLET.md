@@ -1,0 +1,1 @@
+**Payments Intelligence Platform | Python, SQL, PySpark, GitHub Actions** — Built an end-to-end payments analytics platform over 1M deterministic synthetic transaction events, with reusable metric pipelines, automated data-quality controls, payment-performance diagnostics, executive self-service reporting, and quantified revenue-impact recommendations. [Live Demo] [Source]
